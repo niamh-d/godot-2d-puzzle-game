@@ -5,28 +5,27 @@ using Godot;
 
 public partial class GridManager : Node
 {
-	private HashSet<Vector2> occupiedCells = new();
+	private HashSet<Vector2I> occupiedCells = new();
 
 	[Export]
 	private TileMapLayer highlightTilemapLayer;
 	[Export]
 	private TileMapLayer baseTerrainTilemapLayer;
 
-	public override void _Ready()
+	public bool IsTilePosValid(Vector2I tilePos)
 	{
-	}
-
-	public bool IsTilePosValid(Vector2 tilePos)
-	{
+		var customData = baseTerrainTilemapLayer.GetCellTileData(tilePos);
+		if (customData == null) return false;
+		if (!(bool)customData.GetCustomData("buildable")) return false;
 		return !occupiedCells.Contains(tilePos);
 	}
 
-	public void MarkTileAsOccupied(Vector2 tilePos)
+	public void MarkTileAsOccupied(Vector2I tilePos)
 	{
 		occupiedCells.Add(tilePos);
 	}
 
-	public void HighlightValidTilesInRadius(Vector2 rootCell, int radius)
+	public void HighlightValidTilesInRadius(Vector2I rootCell, int radius)
 	{
 		ClearHighlightTiles();
 
@@ -34,8 +33,9 @@ public partial class GridManager : Node
 		{
 			for (var y = rootCell.Y - radius; y <= rootCell.Y + radius; y++)
 			{
-				if (!IsTilePosValid(new Vector2(x, y))) continue;
-				highlightTilemapLayer.SetCell(new Vector2I((int)x, (int)y), 0, Vector2I.Zero);
+				var tilePos = new Vector2I(x, y);
+				if (!IsTilePosValid(tilePos)) continue;
+				highlightTilemapLayer.SetCell(tilePos, 0, Vector2I.Zero);
 			}
 		}
 	}
@@ -45,11 +45,11 @@ public partial class GridManager : Node
 		highlightTilemapLayer.Clear();
 	}
 
-	public Vector2 GetMouseGridCellPos()
+	public Vector2I GetMouseGridCellPos()
 	{
 		var mousePos = highlightTilemapLayer.GetGlobalMousePosition();
 		var gridPos = mousePos / 64;
 		gridPos = gridPos.Floor();
-		return gridPos;
+		return new Vector2I((int)gridPos.X, (int)gridPos.Y);
 	}
 }
