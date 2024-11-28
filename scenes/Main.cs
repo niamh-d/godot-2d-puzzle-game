@@ -1,7 +1,7 @@
-namespace Game;
-
 using Game.Manager;
 using Godot;
+
+namespace Game;
 
 public partial class Main : Node
 
@@ -40,7 +40,7 @@ public partial class Main : Node
 		if (cursor.Visible && (!hoveredGridCell.HasValue || hoveredGridCell.Value != gridPos))
 		{
 			hoveredGridCell = gridPos;
-			gridManager.HighlightValidTilesInRadius(hoveredGridCell.Value, 3);
+			gridManager.HighlightBuildableTiles();
 		}
 	}
 
