@@ -4,11 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://6s34cde41rl0" path="res://assets/buildings/tower_blue.png" id="1_xv865"]
 
 [node name="Building" type="Node2D"]
+y_sort_enabled = true
 
 [node name="BuildingComponent" parent="." instance=ExtResource("1_27bhv")]
 BuildableRadius = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(32, 32)
 texture = ExtResource("1_xv865")
 centered = false
-offset = Vector2(-32, -164)
+offset = Vector2(-64, -204)
