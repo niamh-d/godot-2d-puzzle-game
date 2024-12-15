@@ -32,6 +32,7 @@ public partial class Main : Node
 
 		placeTowerButton.Pressed += OnPlaceTowerButtonPressed;
 		placeVillageButton.Pressed += OnPlaceVillageButtonPressed;
+		gridManager.ResourceTilesUpdated += OnResourceTilesUpdated;
 	}
 
 	public override void _UnhandledInput(InputEvent evt)
@@ -84,5 +85,10 @@ public partial class Main : Node
 		toPlaceBuildingResource = villageResource;
 		cursor.Visible = true;
 		gridManager.HighlightBuildableTiles();
+	}
+
+	private void OnResourceTilesUpdated(int resourceCount)
+	{
+		GD.Print($"Collected {resourceCount} resource tiles");
 	}
 }
