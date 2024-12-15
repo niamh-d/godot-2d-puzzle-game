@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Game.Autoload;
@@ -26,24 +27,13 @@ public partial class GridManager : Node
 		allTilemapLayers = GetAllTilemapLayers(baseTerrainTilemapLayer);
 	}
 
-	public bool IsTilePosValid(Vector2I tilePos)
+	public bool TileHasCustomData(Vector2I tilePos, string dataName)
 	{
 		foreach (var layer in allTilemapLayers)
 		{
 			var customData = layer.GetCellTileData(tilePos);
 			if (customData == null) continue;
-			return (bool)customData.GetCustomData(IS_BUILDABLE);
-		}
-		return false;
-	}
-
-	public bool IsTilePosResource(Vector2I tilePos)
-	{
-		foreach (var layer in allTilemapLayers)
-		{
-			var customData = layer.GetCellTileData(tilePos);
-			if (customData == null) continue;
-			return (bool)customData.GetCustomData(IS_WOOD);
+			return (bool)customData.GetCustomData(dataName);
 		}
 		return false;
 	}
@@ -122,7 +112,7 @@ public partial class GridManager : Node
 		validBuildableTiles.ExceptWith(GetOccupiedTiles());
 	}
 
-	private List<Vector2I> GetValidTilesInRadius(Vector2I rootCell, int radius)
+	private List<Vector2I> GetTilesInRadius(Vector2I rootCell, int radius, Func<Vector2I, bool> filterFn)
 	{
 		var result = new List<Vector2I>();
 		for (var x = rootCell.X - radius; x <= rootCell.X + radius; x++)
@@ -130,26 +120,21 @@ public partial class GridManager : Node
 			for (var y = rootCell.Y - radius; y <= rootCell.Y + radius; y++)
 			{
 				var tilePos = new Vector2I(x, y);
-				if (!IsTilePosValid(tilePos)) continue;
+				if (!filterFn(tilePos)) continue;
 				result.Add(tilePos);
 			}
 		}
 		return result;
 	}
 
+	private List<Vector2I> GetValidTilesInRadius(Vector2I rootCell, int radius)
+	{
+		return GetTilesInRadius(rootCell, radius, (tilePos) => TileHasCustomData(tilePos, IS_BUILDABLE));
+	}
+
 	private List<Vector2I> GetResourceTilesInRadius(Vector2I rootCell, int radius)
 	{
-		var result = new List<Vector2I>();
-		for (var x = rootCell.X - radius; x <= rootCell.X + radius; x++)
-		{
-			for (var y = rootCell.Y - radius; y <= rootCell.Y + radius; y++)
-			{
-				var tilePos = new Vector2I(x, y);
-				if (!IsTilePosResource(tilePos)) continue;
-				result.Add(tilePos);
-			}
-		}
-		return result;
+		return GetTilesInRadius(rootCell, radius, (tilePos) => TileHasCustomData(tilePos, IS_WOOD));
 	}
 
 	private IEnumerable<Vector2I> GetOccupiedTiles()
