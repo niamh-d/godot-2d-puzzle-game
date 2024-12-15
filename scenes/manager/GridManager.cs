@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 using Game.Autoload;
 using Game.Component;
 using Godot;
@@ -94,7 +93,7 @@ public partial class GridManager : Node
 	private void UpdateValidBuildableTiles(BuildingComponent buildingComponent)
 	{
 		var rootCell = buildingComponent.GetGridCellPos();
-		var validTiles = GetValidTilesInRadius(rootCell, buildingComponent.BuildableRadius);
+		var validTiles = GetValidTilesInRadius(rootCell, buildingComponent.BuildingResource.BuildableRadius);
 		validBuildableTiles.UnionWith(validTiles);
 
 		validBuildableTiles.ExceptWith(GetOccupiedTiles());
