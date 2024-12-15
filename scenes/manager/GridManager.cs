@@ -8,6 +8,9 @@ namespace Game.Manager;
 
 public partial class GridManager : Node
 {
+	private const string IS_BUILDABLE = "is_buildable";
+	private const string IS_WOOD = "is_wood";
+
 	private HashSet<Vector2I> validBuildableTiles = new();
 
 	[Export]
@@ -29,7 +32,18 @@ public partial class GridManager : Node
 		{
 			var customData = layer.GetCellTileData(tilePos);
 			if (customData == null) continue;
-			return (bool)customData.GetCustomData("buildable");
+			return (bool)customData.GetCustomData(IS_BUILDABLE);
+		}
+		return false;
+	}
+
+	public bool IsTilePosResource(Vector2I tilePos)
+	{
+		foreach (var layer in allTilemapLayers)
+		{
+			var customData = layer.GetCellTileData(tilePos);
+			if (customData == null) continue;
+			return (bool)customData.GetCustomData(IS_WOOD);
 		}
 		return false;
 	}
@@ -49,7 +63,6 @@ public partial class GridManager : Node
 
 	public void HighlightExpandedBuildableTiles(Vector2I rootCell, int radius)
 	{
-		ClearHighlightTiles();
 		HighlightBuildableTiles();
 
 		var validTiles = GetValidTilesInRadius(rootCell, radius).ToHashSet();
@@ -61,7 +74,17 @@ public partial class GridManager : Node
 		}
 	}
 
-	public void ClearHighlightTiles()
+	public void HighlightResourceTiles(Vector2I rootCell, int radius)
+	{
+		var resourceTiles = GetResourceTilesInRadius(rootCell, radius);
+		var atlasCoords = new Vector2I(1, 0);
+		foreach (var tilePosition in resourceTiles)
+		{
+			highlightTilemapLayer.SetCell(tilePosition, 0, atlasCoords);
+		}
+	}
+
+	public void ClearHighlightedTiles()
 	{
 		highlightTilemapLayer.Clear();
 	}
@@ -108,6 +131,21 @@ public partial class GridManager : Node
 			{
 				var tilePos = new Vector2I(x, y);
 				if (!IsTilePosValid(tilePos)) continue;
+				result.Add(tilePos);
+			}
+		}
+		return result;
+	}
+
+	private List<Vector2I> GetResourceTilesInRadius(Vector2I rootCell, int radius)
+	{
+		var result = new List<Vector2I>();
+		for (var x = rootCell.X - radius; x <= rootCell.X + radius; x++)
+		{
+			for (var y = rootCell.Y - radius; y <= rootCell.Y + radius; y++)
+			{
+				var tilePos = new Vector2I(x, y);
+				if (!IsTilePosResource(tilePos)) continue;
 				result.Add(tilePos);
 			}
 		}

@@ -50,7 +50,9 @@ public partial class Main : Node
 		if (toPlaceBuildingResource != null && cursor.Visible && (!hoveredGridCell.HasValue || hoveredGridCell.Value != gridPos))
 		{
 			hoveredGridCell = gridPos;
+			gridManager.ClearHighlightedTiles();
 			gridManager.HighlightExpandedBuildableTiles(hoveredGridCell.Value, toPlaceBuildingResource.BuildableRadius);
+			gridManager.HighlightResourceTiles(hoveredGridCell.Value, toPlaceBuildingResource.ResourceRadius);
 		}
 	}
 
@@ -67,7 +69,7 @@ public partial class Main : Node
 		building.GlobalPosition = hoveredGridCell.Value * 64;
 
 		hoveredGridCell = null;
-		gridManager.ClearHighlightTiles();
+		gridManager.ClearHighlightedTiles();
 	}
 
 	private void OnPlaceTowerButtonPressed()
