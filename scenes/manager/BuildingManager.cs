@@ -77,6 +77,7 @@ public partial class BuildingManager : Node
 
 		currentlyUsedResourceCount += toPlaceBuildingResource.ResourceCost;
 		buildingGhost.QueueFree();
+		buildingGhost = null;
 	}
 
 
@@ -94,6 +95,10 @@ public partial class BuildingManager : Node
 
 		buildingGhost = buildingGhostScene.Instantiate<Node2D>();
 		ySortRoot.AddChild(buildingGhost);
+
+		var buildingSprite = buildingResource.SpriteScene.Instantiate<Sprite2D>();
+		buildingGhost.AddChild(buildingSprite);
+
 		toPlaceBuildingResource = buildingResource;
 		gridManager.HighlightBuildableTiles();
 	}

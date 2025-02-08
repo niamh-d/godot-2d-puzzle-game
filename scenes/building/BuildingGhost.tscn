@@ -1,12 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://d0vij2midnccj"]
-
-[ext_resource type="Texture2D" uid="uid://6s34cde41rl0" path="res://assets/buildings/tower_blue.png" id="1_swwai"]
+[gd_scene format=3 uid="uid://d0vij2midnccj"]
 
 [node name="BuildingGhost" type="Node2D"]
 y_sort_enabled = true
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(32, 32)
-texture = ExtResource("1_swwai")
-centered = false
-offset = Vector2(-64, -204)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://be43t3m6q044v"]
 
 [ext_resource type="PackedScene" uid="uid://d2jnmtjrvda2r" path="res://scenes/component/BuildingComponent.tscn" id="1_wvf60"]
-[ext_resource type="Texture2D" uid="uid://6s34cde41rl0" path="res://assets/buildings/tower_blue.png" id="2_ee0rs"]
+[ext_resource type="PackedScene" uid="uid://bb1goeq571bmk" path="res://scenes/building/sprite/TowerSprite2D.tscn" id="2_1ea62"]
 
 [node name="Tower" type="Node2D"]
 y_sort_enabled = true
@@ -9,8 +9,4 @@ y_sort_enabled = true
 [node name="BuildingComponent" parent="." instance=ExtResource("1_wvf60")]
 BuildingResourcePath = "res://resources/building/tower.tres"
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(32, 32)
-texture = ExtResource("2_ee0rs")
-centered = false
-offset = Vector2(-64, -204)
+[node name="TowerSprite2D" parent="." instance=ExtResource("2_1ea62")]
