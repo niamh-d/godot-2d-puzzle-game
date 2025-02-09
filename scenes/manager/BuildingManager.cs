@@ -1,4 +1,6 @@
+using System.Linq;
 using Game.Building;
+using Game.Component;
 using Game.Resources.Building;
 using Game.UI;
 using Godot;
@@ -125,7 +127,11 @@ public partial class BuildingManager : Node
 
 	private void DestroyBuildingAtHoveredCellPos()
 	{
+		var buildingComponent = GetTree().GetNodesInGroup(nameof(BuildingComponent)).Cast<BuildingComponent>().FirstOrDefault((buildingComponent) => buildingComponent.GetGridCellPos() == hoveredGridCell);
+		if (buildingComponent == null) return;
 
+		currentlyUsedResourceCount -= buildingComponent.BuildingResource.ResourceCost;
+		buildingComponent.Destroy();
 	}
 
 	private void ClearBuildingGhost()
