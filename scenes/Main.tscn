@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://fowweuc8x6pf"]
+[gd_scene load_steps=10 format=4 uid="uid://fowweuc8x6pf"]
 
 [ext_resource type="Script" path="res://scenes/Main.cs" id="1_l6ukv"]
 [ext_resource type="TileSet" uid="uid://b0mckilq82a8r" path="res://resources/highlight_tileset.tres" id="2_c464l"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://kqfyvvh1f2en" path="res://scenes/manager/BuildingManager.tscn" id="3_po3yw"]
 [ext_resource type="PackedScene" uid="uid://dkb1gwxnhfskt" path="res://scenes/building/Base.tscn" id="5_3avkw"]
 [ext_resource type="PackedScene" uid="uid://dryae0i0a362p" path="res://scenes/ui/GameUI.tscn" id="6_s65nh"]
+[ext_resource type="PackedScene" uid="uid://d3npnrdehvjti" path="res://scenes/GoldMine.tscn" id="7_dck1a"]
 [ext_resource type="PackedScene" uid="uid://d0vij2midnccj" path="res://scenes/building/BuildingGhost.tscn" id="8_x4g8u"]
 
 [node name="Main" type="Node"]
@@ -37,6 +38,10 @@ tile_set = ExtResource("2_wepac")
 
 [node name="Base" parent="YSortRoot" instance=ExtResource("5_3avkw")]
 position = Vector2(384, 384)
+
+[node name="GoldMine" parent="YSortRoot" instance=ExtResource("7_dck1a")]
+unique_name_in_owner = true
+position = Vector2(1090, 519)
 
 [node name="HighlightTileMapLayer" type="TileMapLayer" parent="."]
 modulate = Color(1, 1, 1, 0.486275)

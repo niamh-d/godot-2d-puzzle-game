@@ -15,6 +15,9 @@ public partial class GridManager : Node
 	[Signal]
 	public delegate void ResourceTilesUpdatedEventHandler(int collectedTiles);
 
+	[Signal]
+	public delegate void GridStateUpdatedEventHandler();
+
 	private HashSet<Vector2I> validBuildableTiles = new();
 	private HashSet<Vector2I> collectedResourceTiles = new();
 	private HashSet<Vector2I> occupiedTiles = new();
@@ -86,9 +89,14 @@ public partial class GridManager : Node
 	public Vector2I GetMouseGridCellPos()
 	{
 		var mousePos = highlightTilemapLayer.GetGlobalMousePosition();
-		var gridPos = mousePos / 64;
-		gridPos = gridPos.Floor();
-		return new Vector2I((int)gridPos.X, (int)gridPos.Y);
+		return ConvertWorldPositionToTilePosition(mousePos);
+	}
+
+	public Vector2I ConvertWorldPositionToTilePosition(Vector2 worldPosition)
+	{
+		var tilePos = worldPosition / 64;
+		tilePos = tilePos.Floor();
+		return new Vector2I((int)tilePos.X, (int)tilePos.Y);
 	}
 
 	private List<TileMapLayer> GetAllTilemapLayers(TileMapLayer rootTilemapLayer)
@@ -114,6 +122,7 @@ public partial class GridManager : Node
 		var validTiles = GetValidTilesInRadius(rootCell, buildingComponent.BuildingResource.BuildableRadius);
 		validBuildableTiles.UnionWith(validTiles);
 		validBuildableTiles.ExceptWith(occupiedTiles);
+		EmitSignal(SignalName.GridStateUpdated);
 	}
 
 	private void UpdateCollectedResourceTiles(BuildingComponent buildingComponent)
@@ -129,6 +138,7 @@ public partial class GridManager : Node
 		{
 			EmitSignal(SignalName.ResourceTilesUpdated, newResourceTileCount);
 		}
+		EmitSignal(SignalName.GridStateUpdated);
 	}
 
 	private void RecalculateGrid(BuildingComponent excludedBuildingComponent)
@@ -145,6 +155,7 @@ public partial class GridManager : Node
 		}
 
 		EmitSignal(SignalName.ResourceTilesUpdated, collectedResourceTiles.Count);
+		EmitSignal(SignalName.GridStateUpdated);
 	}
 
 	private List<Vector2I> GetTilesInRadius(Vector2I rootCell, int radius, Func<Vector2I, bool> filterFn)
