@@ -1,0 +1,42 @@
+[gd_scene load_steps=10 format=3 uid="uid://fowweuc8x6pf"]
+
+[ext_resource type="Script" path="res://scenes/level/BaseLevel.cs" id="1_l6ukv"]
+[ext_resource type="TileSet" uid="uid://b0mckilq82a8r" path="res://resources/highlight_tileset.tres" id="2_c464l"]
+[ext_resource type="TileSet" uid="uid://b8iuuo74qmkjl" path="res://resources/tiles.tres" id="2_wepac"]
+[ext_resource type="PackedScene" uid="uid://bmf1dpvwbj0fe" path="res://scenes/manager/GridManager.tscn" id="2_yrhcq"]
+[ext_resource type="PackedScene" uid="uid://kqfyvvh1f2en" path="res://scenes/manager/BuildingManager.tscn" id="3_po3yw"]
+[ext_resource type="PackedScene" uid="uid://dkb1gwxnhfskt" path="res://scenes/building/Base.tscn" id="5_3avkw"]
+[ext_resource type="PackedScene" uid="uid://dryae0i0a362p" path="res://scenes/ui/GameUI.tscn" id="6_s65nh"]
+[ext_resource type="PackedScene" uid="uid://d3npnrdehvjti" path="res://scenes/GoldMine.tscn" id="7_dck1a"]
+[ext_resource type="PackedScene" uid="uid://d0vij2midnccj" path="res://scenes/building/BuildingGhost.tscn" id="8_x4g8u"]
+
+[node name="BaseLevel" type="Node"]
+script = ExtResource("1_l6ukv")
+
+[node name="GridManager" parent="." node_paths=PackedStringArray("highlightTilemapLayer", "baseTerrainTilemapLayer") instance=ExtResource("2_yrhcq")]
+highlightTilemapLayer = NodePath("../HighlightTileMapLayer")
+baseTerrainTilemapLayer = NodePath("../YSortRoot/BaseTerrainTileMapLayer")
+
+[node name="BuildingManager" parent="." node_paths=PackedStringArray("gridManager", "gameUI", "ySortRoot") instance=ExtResource("3_po3yw")]
+gridManager = NodePath("../GridManager")
+gameUI = NodePath("../GameUI")
+ySortRoot = NodePath("../YSortRoot")
+buildingGhostScene = ExtResource("8_x4g8u")
+
+[node name="YSortRoot" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="BaseTerrainTileMapLayer" type="TileMapLayer" parent="YSortRoot"]
+y_sort_enabled = true
+tile_set = ExtResource("2_wepac")
+
+[node name="Base" parent="YSortRoot" instance=ExtResource("5_3avkw")]
+
+[node name="GoldMine" parent="YSortRoot" instance=ExtResource("7_dck1a")]
+unique_name_in_owner = true
+
+[node name="HighlightTileMapLayer" type="TileMapLayer" parent="."]
+modulate = Color(1, 1, 1, 0.486275)
+tile_set = ExtResource("2_c464l")
+
+[node name="GameUI" parent="." instance=ExtResource("6_s65nh")]
