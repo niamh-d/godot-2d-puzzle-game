@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://fowweuc8x6pf"]
+[gd_scene load_steps=11 format=3 uid="uid://fowweuc8x6pf"]
 
 [ext_resource type="Script" path="res://scenes/level/BaseLevel.cs" id="1_l6ukv"]
 [ext_resource type="TileSet" uid="uid://b0mckilq82a8r" path="res://resources/highlight_tileset.tres" id="2_c464l"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bmf1dpvwbj0fe" path="res://scenes/manager/GridManager.tscn" id="2_yrhcq"]
 [ext_resource type="PackedScene" uid="uid://kqfyvvh1f2en" path="res://scenes/manager/BuildingManager.tscn" id="3_po3yw"]
 [ext_resource type="PackedScene" uid="uid://dkb1gwxnhfskt" path="res://scenes/building/Base.tscn" id="5_3avkw"]
+[ext_resource type="PackedScene" uid="uid://bi1mks1c710pu" path="res://scenes/GameCamera.tscn" id="5_g0cfb"]
 [ext_resource type="PackedScene" uid="uid://dryae0i0a362p" path="res://scenes/ui/GameUI.tscn" id="6_s65nh"]
 [ext_resource type="PackedScene" uid="uid://d3npnrdehvjti" path="res://scenes/GoldMine.tscn" id="7_dck1a"]
 [ext_resource type="PackedScene" uid="uid://d0vij2midnccj" path="res://scenes/building/BuildingGhost.tscn" id="8_x4g8u"]
@@ -23,10 +24,13 @@ gameUI = NodePath("../GameUI")
 ySortRoot = NodePath("../YSortRoot")
 buildingGhostScene = ExtResource("8_x4g8u")
 
+[node name="GameCamera" parent="." instance=ExtResource("5_g0cfb")]
+
 [node name="YSortRoot" type="Node2D" parent="."]
 y_sort_enabled = true
 
 [node name="BaseTerrainTileMapLayer" type="TileMapLayer" parent="YSortRoot"]
+unique_name_in_owner = true
 y_sort_enabled = true
 tile_set = ExtResource("2_wepac")
 
