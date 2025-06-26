@@ -24,6 +24,8 @@ gameUI = NodePath("../GameUI")
 ySortRoot = NodePath("../YSortRoot")
 buildingGhostScene = ExtResource("8_x4g8u")
 
+[node name="GameUI" parent="." instance=ExtResource("6_s65nh")]
+
 [node name="GameCamera" parent="." instance=ExtResource("5_g0cfb")]
 
 [node name="YSortRoot" type="Node2D" parent="."]
@@ -47,5 +49,3 @@ unique_name_in_owner = true
 [node name="HighlightTileMapLayer" type="TileMapLayer" parent="."]
 modulate = Color(1, 1, 1, 0.486275)
 tile_set = ExtResource("2_c464l")
-
-[node name="GameUI" parent="." instance=ExtResource("6_s65nh")]
