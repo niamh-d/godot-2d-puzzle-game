@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://d0vij2midnccj"]
 
-[ext_resource type="Script" path="res://scenes/building/BuildingGhost.cs" id="1_kojpa"]
+[ext_resource type="Script" uid="uid://bv8riod5k754d" path="res://scenes/building/BuildingGhost.cs" id="1_kojpa"]
 
 [node name="BuildingGhost" type="Node2D"]
 y_sort_enabled = true

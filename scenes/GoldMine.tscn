@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://d3npnrdehvjti"]
 
-[ext_resource type="Script" path="res://scenes/GoldMine.cs" id="1_u476g"]
+[ext_resource type="Script" uid="uid://d3uv8woljyfqn" path="res://scenes/GoldMine.cs" id="1_u476g"]
 [ext_resource type="Texture2D" uid="uid://311qvu0giyth" path="res://assets/gold_mine_inactive.png" id="1_uu1ed"]
 [ext_resource type="Texture2D" uid="uid://dkvvro2cmruvw" path="res://assets/gold_mine_active.png" id="2_0vv20"]
 
