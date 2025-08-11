@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://ceb16qjpfvmj4"]
+[gd_resource type="Resource" script_class="BuildingResource" load_steps=3 format=3 uid="uid://ceb16qjpfvmj4"]
 
 [ext_resource type="Script" uid="uid://clssy8hlyfbwt" path="res://resources/building/BuildingResource.cs" id="1_1nlqa"]
 [ext_resource type="PackedScene" uid="uid://dkb1gwxnhfskt" path="res://scenes/building/Base.tscn" id="1_tgdhc"]
@@ -6,6 +6,8 @@
 [resource]
 script = ExtResource("1_1nlqa")
 DisplayName = "Base"
+Dimensions = Vector2i(5, 2)
+ResourceCost = 0
 BuildableRadius = 3
 ResourceRadius = 0
 BuildingScene = ExtResource("1_tgdhc")
