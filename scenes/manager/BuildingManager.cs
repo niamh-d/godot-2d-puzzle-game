@@ -152,7 +152,7 @@ public partial class BuildingManager : Node
 		var buildingComponent = GetTree().GetNodesInGroup(nameof(BuildingComponent)).Cast<BuildingComponent>()
 		.FirstOrDefault((buildingComponent) =>
 		{
-			return buildingComponent.BuildingResource.IsDeletable && buildingComponent.GetGridCellPos() == rootCell;
+			return buildingComponent.BuildingResource.IsDeletable && buildingComponent.IsTileInBuildingArea(rootCell);
 		});
 
 
