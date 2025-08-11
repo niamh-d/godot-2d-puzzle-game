@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource("1_1nlqa")
 DisplayName = "Base"
+IsDeletable = false
 Dimensions = Vector2i(5, 2)
 ResourceCost = 0
 BuildableRadius = 3
