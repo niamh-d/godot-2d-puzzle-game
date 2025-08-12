@@ -202,15 +202,27 @@ public partial class GridManager : Node
 		EmitSignal(SignalName.GridStateUpdated);
 	}
 
+	private bool IsTileInsideCircle(Vector2 centerPos, Vector2 tilePos, float radius)
+	{
+		var distanceX = centerPos.X - (tilePos.X + .5);
+		var distanceY = centerPos.Y - (tilePos.Y + .5);
+		var distanceSquared = (distanceX * distanceX) + (distanceY * distanceY);
+		return distanceSquared <= radius * radius;
+	}
+
 	private List<Vector2I> GetTilesInRadius(Rect2I tileArea, int radius, Func<Vector2I, bool> filterFn)
 	{
 		var result = new List<Vector2I>();
+		var tileAreaF = tileArea.ToRect2F();
+		var tileAreaCenter = tileAreaF.GetCenter();
+		var radiusMod = Mathf.Max(tileAreaF.Size.X, tileAreaF.Size.Y) / 2;
+
 		for (var x = tileArea.Position.X - radius; x < tileArea.End.X + radius; x++)
 		{
 			for (var y = tileArea.Position.Y - radius; y < tileArea.End.Y + radius; y++)
 			{
 				var tilePos = new Vector2I(x, y);
-				if (!filterFn(tilePos)) continue;
+				if (!IsTileInsideCircle(tileAreaCenter, tilePos, radius + radiusMod) || !filterFn(tilePos)) continue;
 				result.Add(tilePos);
 			}
 		}
