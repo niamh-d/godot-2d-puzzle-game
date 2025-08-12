@@ -75,29 +75,6 @@ public partial class BuildingManager : Node
 		}
 	}
 
-	private bool IsBuildingPlaceableAtArea(Rect2I tileArea)
-	{
-		var tilesInArea = GetTilePositionsInTileArea(tileArea);
-		var allTilesBuildable = tilesInArea.All(gridManager.IsTilePosBuildable);
-
-		return allTilesBuildable && AvailableResourceCount >= toPlaceBuildingResource.ResourceCost;
-	}
-
-	private List<Vector2I> GetTilePositionsInTileArea(Rect2I tileArea)
-	{
-		var result = new List<Vector2I>();
-
-		for (int x = tileArea.Position.X; x < tileArea.End.X; x++)
-		{
-			for (int y = tileArea.Position.Y; y < tileArea.End.Y; y++)
-			{
-				result.Add(new Vector2I(x, y));
-			}
-		}
-
-		return result;
-	}
-
 	public override void _Process(double delta)
 	{
 		var mouseGridPosition = gridManager.GetMouseGridCellPos();
@@ -116,6 +93,13 @@ public partial class BuildingManager : Node
 				buildingGhost.GlobalPosition = mouseGridPosition * 64;
 				break;
 		}
+	}
+
+	private bool IsBuildingPlaceableAtArea(Rect2I tileArea)
+	{
+		var allTilesBuildable = gridManager.IsTileAreaBuildable(tileArea);
+
+		return allTilesBuildable && AvailableResourceCount >= toPlaceBuildingResource.ResourceCost;
 	}
 
 	private void UpdateGridDisplay()
