@@ -33,6 +33,10 @@ project/assembly_name="PuzzleGame"
 
 naming/scene_name_casing=1
 
+[gui]
+
+theme/custom="uid://btl7onqrce3bl"
+
 [input]
 
 left_click={

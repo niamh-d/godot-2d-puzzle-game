@@ -1,28 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dryae0i0a362p"]
+[gd_scene load_steps=4 format=3 uid="uid://dryae0i0a362p"]
 
 [ext_resource type="Script" uid="uid://du71l3ix1bc7l" path="res://scenes/ui/GameUI.cs" id="1_0u6jl"]
 [ext_resource type="Resource" uid="uid://dbh0vnjhxbvss" path="res://resources/building/tower.tres" id="2_hbkka"]
 [ext_resource type="Resource" uid="uid://8myy2btjkxna" path="res://resources/building/village.tres" id="3_o3vca"]
-[ext_resource type="Texture2D" uid="uid://dkg8fnsjx4044" path="res://assets/ui/banner_vertical.png" id="4_xsfm0"]
-[ext_resource type="Texture2D" uid="uid://dfwqk4oysih3s" path="res://assets/ui/carved_nine_slides.png" id="5_rv83x"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rv83x"]
-texture = ExtResource("4_xsfm0")
-texture_margin_left = 32.0
-texture_margin_top = 40.0
-texture_margin_right = 32.0
-texture_margin_bottom = 40.0
-axis_stretch_horizontal = 1
-axis_stretch_vertical = 1
-region_rect = Rect2(32, 24, 128, 144)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_627l5"]
-texture = ExtResource("5_rv83x")
-texture_margin_left = 24.0
-texture_margin_top = 24.0
-texture_margin_right = 24.0
-texture_margin_bottom = 24.0
-region_rect = Rect2(0, 0, 192, 192)
 
 [node name="GameUI" type="CanvasLayer"]
 script = ExtResource("1_0u6jl")
@@ -42,14 +22,13 @@ theme_override_constants/margin_bottom = 16
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-theme_override_styles/panel = SubResource("StyleBoxTexture_rv83x")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer"]
 layout_mode = 2
 
 [node name="BuildingButton" type="PanelContainer" parent="MarginContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_627l5")
+theme_type_variation = &"PanelContainerAlternate"
 
 [node name="Button" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/BuildingButton"]
 layout_mode = 2
